@@ -177,8 +177,9 @@ def viewinscr(request, inscrid):
         log_id = common.get_log_identifier( request.session )
         q = _call_viewinsc_solr( inscrid )  # The results of the solr query to find the inscription. q.results is list of dictionaries of values.
         current_display_status = _update_viewinscr_display_status( request, q )
-        z_bibids_initial = [_bib_tuple_or_none(x) for x in q.results[0]['bibl']]
-        # z_bibids_initial = [x.replace(".xml", "").replace("bibl=", "").replace("nType=", "").replace("n=", "") for x in q.results[0]['bibl']]
+        # z_bibids_initial = [_bib_tuple_or_none(x) for x in q.results[0]['bibl']]
+        z_bibids_initial = [x.replace(".xml", "").replace("bibl=", "").replace("nType=", "").replace("n=", "") for x in q.results[0]['bibl']]
+        log.debug( 'z_bibids_initial, ```%s```' % repr(z_bibids_initial) )
         z_bibids = {}
         for entry in z_bibids_initial:
             if not entry:
