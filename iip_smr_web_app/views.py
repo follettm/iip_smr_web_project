@@ -146,14 +146,27 @@ biblRegex = re.compile(r'bibl=(.*)\.xml\|nType=(.*)\|n=(.*)')
 def viewinscr(request, inscrid):
     """ Handles view-inscription GET with new Javascript and Zotero bibliography. """
 
+    # def _bib_tuple_or_none(s):
+    #     t = biblRegex.match(s)
+    #     if t:
+    #         return t.groups()
+    #     elif s == "ms":
+    #         return ("ms", None, None)
+    #     else:
+    #         return None
+
     def _bib_tuple_or_none(s):
+        log.debug( 's, ```%s```' % s )
         t = biblRegex.match(s)
+        log.debug( 't, ```%s```' % t )
         if t:
-            return t.groups()
+            return_val = t.groups()
         elif s == "ms":
-            return ("ms", None, None)
+            return_val = ("ms", None, None)
         else:
-            return None
+            return_val = None
+        log.debug( 'return_val, ```%s```' % repr(return_val) )
+        return return_val
 
     # Prepare an inscription
     def _prepare_viewinscr_get_data (request, inscrid):
@@ -165,6 +178,7 @@ def viewinscr(request, inscrid):
         q = _call_viewinsc_solr( inscrid )  # The results of the solr query to find the inscription. q.results is list of dictionaries of values.
         current_display_status = _update_viewinscr_display_status( request, q )
         z_bibids_initial = [_bib_tuple_or_none(x) for x in q.results[0]['bibl']]
+        # z_bibids_initial = [x.replace(".xml", "").replace("bibl=", "").replace("nType=", "").replace("n=", "") for x in q.results[0]['bibl']]
         z_bibids = {}
         for entry in z_bibids_initial:
             if not entry:
