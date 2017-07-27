@@ -76,7 +76,7 @@ def results( request ):
         #         break
         #     1/0
 
-        print("get_results_context: ", context)
+        # print("get_results_context: ", context)
 
         return context
 
@@ -116,7 +116,7 @@ def results( request ):
         return context
 
 
-        
+
     log_id = common.get_log_identifier( request.session )
     log.info( 'id, `%s`; starting' % log_id )
     if not u'authz_info' in request.session:
@@ -151,7 +151,7 @@ def results( request ):
 
 
 
-        
+
     elif request.is_ajax():  # user has requested another page, a facet, etc.
         log.debug( 'request.is_axax() is True' )
         return HttpResponse( _get_ajax_unistring(request) )
@@ -527,7 +527,7 @@ def write_story(story_num):
                 date_start.append(data["response"]["docs"][0]["notBefore"])
                 date_end.append(data["response"]["docs"][0]["notAfter"])
 
-            
+
 
     context = {
     ##stories.csv (Excel Spreadsheet)
@@ -535,7 +535,7 @@ def write_story(story_num):
     "author": author,
     "published_date": published_date,
     "relevant_inscription": relevant_inscription,
-    "summary": summary, 
+    "summary": summary,
     "content_url": content_url,
 
     ##IIP database
@@ -544,7 +544,7 @@ def write_story(story_num):
     "date": date,
     "place_found": place_found,
     "transcription": transcription,
-    "translation": translation,    
+    "translation": translation,
     "num_relevantInscriptions": range(num_relevantInscriptions),
     "dimension" : dimension,
     "date_start" : date_start,
@@ -561,25 +561,25 @@ def load_layers(request):
     print(BASE_DIR)
 
     json_data = os.path.join(BASE_DIR, 'iip_smr_web_app/static/', "mapsearch/geoJSON/roman_provinces.geojson")
-    data = open(json_data, 'r') 
+    data = open(json_data, 'r')
     roman_provinces = json.load(data)
     roman_provinces = json.dumps(roman_provinces)
     data.close()
 
     json_data = os.path.join(BASE_DIR, 'iip_smr_web_app/static/', "mapsearch/geoJSON/roman_roads.geojson")
-    data = open(json_data, 'r') 
+    data = open(json_data, 'r')
     roman_roads = json.load(data)
     roman_roads = json.dumps(roman_roads)
     data.close()
 
     json_data = os.path.join(BASE_DIR, 'iip_smr_web_app/static/', "mapsearch/geoJSON/byzantine_provinces_400CE.geojson")
-    data = open(json_data, 'r') 
+    data = open(json_data, 'r')
     byzantine = json.load(data)
     byzantine = json.dumps(byzantine)
     data.close()
 
     json_data = os.path.join(BASE_DIR, 'iip_smr_web_app/static/', "mapsearch/geoJSON/IIP_regions2.geojson")
-    data = open(json_data, 'r') 
+    data = open(json_data, 'r')
     iip = json.load(data)
     iip = json.dumps(iip)
     data.close()
