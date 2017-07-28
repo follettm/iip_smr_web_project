@@ -122,13 +122,3 @@ MARKDOWN_DEUX_STYLES = {
         "safe_mode": False,
     },
 }
-
-
-
-
-
-
-##
-
-
-
